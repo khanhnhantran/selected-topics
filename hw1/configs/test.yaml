@@ -1,0 +1,13 @@
+model:
+  backbone: timm/seresnextaa101d_32x8d.sw_in12k_ft_in1k_288  
+  num_classes: 100
+  checkpoint: /home/longpm/works/selected-topics-nycu/hw1/checkpoints/seresnextaa101d_32x8d_sw_in12k_ft_in1k_288_imbalance/best_model_acc0.9700.pth
+
+data:
+  test_dir: data/test
+  image_size: 320
+  batch_size: 32
+  num_workers: 4
+
+output:
+  submission_file: runs/seresnextaa101d_32x8d.sw_in12k_ft_in1k_288_imbalance/0/prediction.csv

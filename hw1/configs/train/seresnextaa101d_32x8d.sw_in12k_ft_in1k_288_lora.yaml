@@ -1,0 +1,44 @@
+model:
+  backbone: timm/seresnextaa101d_32x8d.sw_in12k_ft_in1k_288
+  pretrained: true
+  num_classes: 100
+  drop_rate: 0.1       
+  checkpoint: null
+  lora:
+    enabled: true
+    rank: 16 
+    alpha: 32.0       
+    dropout: 0.05       
+    target_modules:
+      - Linear
+    save_lora_only: false   
+
+data:
+  train_dir: data/train
+  val_dir: data/val
+  image_size: 320
+  resize_size: 334
+  crop_size: 320
+  batch_size: 32
+  num_workers: 4
+  use_augmentation: true
+
+training:
+  epochs: 30
+  lr: 1.0e-3            
+  min_lr: 1.0e-6
+  weight_decay: 1.0e-2
+  optimizer: adamw
+  scheduler: cosine
+  warmup_epochs: 3
+  label_smoothing: 0.1
+  gradient_clip: 1.0
+  mixup_alpha: 0.2
+  accumulation_steps: 1
+  use_class_weights: true
+  use_weighted_sampler: true
+
+output:
+  checkpoint_dir: checkpoints/seresnextaa101d_lora_r16
+  log_dir: logs/seresnextaa101d_lora_r16
+  save_top_k: 3
