@@ -1,0 +1,34 @@
+model:
+  backbone: resnet101        # resnet18 | resnet34 | resnet50 | resnet101 | resnet152
+  pretrained: true
+  num_classes: 100
+  drop_rate: 0.2
+  checkpoint: null          # Path to model checkpoint (.pth) for resuming training or inference
+
+data:
+  train_dir: data/train
+  val_dir: data/val
+  image_size: 224
+  resize_size: 334
+  crop_size: 320
+  batch_size: 64
+  num_workers: 4
+  use_augmentation: true
+
+training:
+  epochs: 50
+  lr: 1.0e-3
+  min_lr: 1.0e-6
+  weight_decay: 1.0e-4
+  optimizer: adamw          # sgd | adam | adamw
+  scheduler: cosine         # step | cosine | plateau
+  warmup_epochs: 5
+  label_smoothing: 0.1
+  gradient_clip: 1.0
+  mixup_alpha: 0.0          # 0.0 to disable mixup
+  accumulation_steps: 1
+
+output:
+  checkpoint_dir: checkpoints/resnet101
+  log_dir: logs/resnet101
+  save_top_k: 3

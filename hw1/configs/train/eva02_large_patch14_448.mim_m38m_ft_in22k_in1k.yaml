@@ -1,0 +1,33 @@
+model:
+  backbone: timm/eva02_large_patch14_448.mim_m38m_ft_in22k_in1k   
+  num_classes: 100
+  drop_rate: 0.3
+  checkpoint: null          # Path to model checkpoint (.pth) for resuming training or inference
+
+data:
+  train_dir: data/train
+  val_dir: data/val
+  image_size: 224
+  resize_size: 448
+  crop_size: 448
+  batch_size: 4
+  num_workers: 4
+  use_augmentation: true
+
+training:
+  epochs: 50
+  lr: 3.0e-4               # lower LR for fine-tuning; 1e-3 destroys pretrained features
+  min_lr: 1.0e-6
+  weight_decay: 1.0e-2     # AdamW needs stronger wd than SGD; 1e-4 underregularizes
+  optimizer: adamw          # sgd | adam | adamw
+  scheduler: cosine         # step | cosine | plateau
+  warmup_epochs: 5
+  label_smoothing: 0.1
+  gradient_clip: 1.0
+  mixup_alpha: 0.0          # stronger augmentation for 100-class fine-tuning
+  accumulation_steps: 2     # effective batch 32 → smoother gradients
+
+output:
+  checkpoint_dir: checkpoints/eva02_large_patch14_448.mim_m38m_ft_in22k_in1k   
+  log_dir: logs/eva02_large_patch14_448.mim_m38m_ft_in22k_in1k   
+  save_top_k: 3
