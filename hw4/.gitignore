@@ -1,0 +1,7 @@
+**/*data/
+**/*__pycache__/
+**/*.claude
+**/*wandb/
+**/*train_ckpt_v3/
+**/*train_ckpt/
+**/output/
